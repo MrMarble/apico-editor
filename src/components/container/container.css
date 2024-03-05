@@ -1,0 +1,11 @@
+@tailwind components;
+
+@layer components {
+  .container-section + .container-section {
+    @apply -mt-1;
+  }
+
+  .container-section + .container-section .container-section--secondary {
+    @apply pix-t-hilight;
+  }
+}

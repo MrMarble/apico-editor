@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #77cab3;
+    user-select: none;
+    overflow: clip;
+  }
+}
+
+@layer utilities {
+  .pixel {
+    box-shadow:
+      -4px 0 0 0 var(--pixel-l),
+      4px 0 0 0 var(--pixel-r),
+      0 -4px 0 0 var(--pixel-t),
+      0 4px 0 0 var(--pixel-b);
+  }
+
+  .crisp {
+    image-rendering: crisp-edges;
+  }
+
+  .apico {
+    letter-spacing: -5px;
+    line-height: 14px;
+  }
+
+  .drop {
+    filter: drop-shadow(0 -100px 0 theme("colors.base"));
+    transform: translateY(100px);
+  }
+}
