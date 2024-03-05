@@ -36,7 +36,7 @@ export const Help = ({ onClose }) => (
                 alt="left click"
                 className="crisp inline"
                 width="16px"
-              />
+              />{" "}
               on the traits to modify the direct trait, holding{" "}
               <img
                 src={shift}
