@@ -1,11 +1,16 @@
-import { Container } from "../container/Container";
-import close from "../../assets/close.png";
-import click from "../../assets/click.png";
-import shift from "../../assets/shift.png";
-import usage from "../../assets/usage.webp";
+import { Container } from "../Container";
+import close from "@/assets/close.png";
+import click from "@/assets/click.png";
+import shift from "@/assets/shift.png";
+import usage from "@/assets/usage.webp";
 import { useEffect } from "preact/hooks";
-export const Help = ({ onClose }) => {
-  const handleKeyDown = (e) => {
+
+interface HelpProps {
+  onClose: () => void;
+}
+
+export const Help = ({ onClose }: HelpProps) => {
+  const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
       onClose();
     }

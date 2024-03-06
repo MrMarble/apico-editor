@@ -1,16 +1,21 @@
-import { useGlobalContext } from "..";
-import { Container } from "../container/Container";
-import Logo from "../../assets/apico logo.png";
-import close from "../../assets/close.png";
-import question from "../../assets/question.png";
-import download from "../../assets/download.png";
-import downloadBlob from "../../helpers/downloadBlob";
+import { Container } from "../Container";
+import Logo from "@/assets/apico logo.png";
+import close from "@/assets/close.png";
+import question from "@/assets/question.png";
+import download from "@/assets/download.png";
+import downloadBlob from "@/helpers/downloadBlob";
 import { useState } from "preact/hooks";
-import { Help } from "../help";
+import { Help } from "../Help";
 import { createPortal } from "preact/compat";
-import { canUseDOM } from "../../helpers/canUseDOM";
+import { canUseDOM } from "@/helpers/canUseDOM";
+import { useGlobalContext } from "../Context";
+import { ComponentChildren } from "preact";
 
-export const Layout = ({ children }) => {
+interface LayoutProps {
+  children: ComponentChildren;
+}
+
+export const Layout = ({ children }: LayoutProps) => {
   const { title, save, setSave } = useGlobalContext();
   const [showHelp, setShowHelp] = useState(false);
 
@@ -78,7 +83,10 @@ export const Layout = ({ children }) => {
       </div>
       <div className="h-[153]"></div>
       {showHelp &&
-        createPortal(<Help onClose={() => setShowHelp(false)} />, container)}
+        createPortal(
+          <Help onClose={() => setShowHelp(false)} />,
+          container as Element,
+        )}
     </div>
   );
 };

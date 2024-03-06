@@ -1,4 +1,4 @@
-function downloadURL(data, fileName) {
+function downloadURL(data: string, fileName: string) {
   const a = document.createElement("a");
   a.href = data;
   a.download = fileName;
@@ -8,7 +8,7 @@ function downloadURL(data, fileName) {
   a.remove();
 }
 
-function downloadBlob(data, fileName, mimeType) {
+function downloadBlob(data: string, fileName: string, mimeType: string) {
   const blob = new Blob([data], {
     type: mimeType,
   });

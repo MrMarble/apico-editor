@@ -1,8 +1,8 @@
-import { Box } from "../box/Box";
-import diurnal from "../../assets/diurnal.png";
-import nocturnal from "../../assets/nocturnal.png";
-import crepuscular from "../../assets/crepuscular.png";
+import diurnal from "@/assets/diurnal.png";
+import nocturnal from "@/assets/nocturnal.png";
+import crepuscular from "@/assets/crepuscular.png";
 import { twMerge } from "tailwind-merge";
+import { Box } from "@/components/Box";
 
 export const Behaviour = ({ bee, onClick }) => {
   const isDiurnal =

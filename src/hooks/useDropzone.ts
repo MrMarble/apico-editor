@@ -1,24 +1,34 @@
-import { fromEvent } from "file-selector";
+import { FileWithPath, fromEvent } from "file-selector";
+import { ChangeEvent } from "preact/compat";
 import { useRef } from "preact/hooks";
 
-export const useDropzone = ({ onDrop, accept }) => {
-  const inputRef = useRef(null);
 
-  const handleDragOver = (e) => {
+declare global {
+  interface Window {
+    showOpenFilePicker: (options: unknown) => Promise<unknown>;
+  }
+}
+
+interface DropzoneProps {
+  onDrop: (files: (FileWithPath | DataTransferItem)[]) => void;
+  accept: Record<string, string[]>;
+}
+
+export const useDropzone = ({ onDrop, accept }: DropzoneProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleDragOver = (e: DragEvent) => {
     e.preventDefault();
   };
 
-  const handleDrop = async (ev) => {
+  const handleDrop = async (ev: DragEvent) => {
     ev.preventDefault();
-    ev.persist();
     const files = await fromEvent(ev);
 
     onDrop(files);
   };
 
-  const handleClick = async (ev) => {
-    ev.persist();
-
+  const handleClick = async () => {
     if (window.isSecureContext && "showOpenFilePicker" in window) {
       const handles = await window.showOpenFilePicker({
         multiple: false,
@@ -37,13 +47,12 @@ export const useDropzone = ({ onDrop, accept }) => {
 
     if (inputRef.current) {
       console.log(inputRef.current);
-      inputRef.current.value = null;
+      inputRef.current.value = "";
       inputRef.current.click();
     }
   };
 
-  const handleChange = async (ev) => {
-    ev.persist();
+  const handleChange = async (ev: ChangeEvent<HTMLInputElement>) => {
     const files = await fromEvent(ev);
 
     onDrop(files);
@@ -61,7 +70,7 @@ export const useDropzone = ({ onDrop, accept }) => {
       onDragOver: handleDragOver,
       onDrop: handleDrop,
       onClick: handleClick,
-      role: "presentation",
+      role: "presentation" as const,
     }),
   };
 };

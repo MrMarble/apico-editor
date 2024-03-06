@@ -1,8 +1,10 @@
 import { FileUp } from "lucide-preact";
-import { Box } from "../box/Box";
-import { Container, useGlobalContext } from "..";
-import { useDropzone } from "../../hooks/useDropzone";
-import question from "../../assets/question.png";
+import { Box } from "../Box";
+import { useDropzone } from "@/hooks/useDropzone";
+import question from "@/assets/question.png";
+import { useGlobalContext } from "../Context";
+import { Container } from "../Container";
+
 export const Upload = () => {
   const { setSave } = useGlobalContext();
   const { getInputProps, getRootProps } = useDropzone({
@@ -21,7 +23,7 @@ export const Upload = () => {
       };
 
       if (files[0]) {
-        fr.readAsText(files[0]);
+        fr.readAsText(files[0] as Blob);
       }
     },
   });

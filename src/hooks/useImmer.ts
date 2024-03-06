@@ -1,7 +1,7 @@
 import { freeze, produce } from "immer";
 import { useCallback, useState } from "preact/hooks";
 
-export function useImmer(initialValue) {
+export function useImmer<T>(initialValue: T) {
   const [val, updateValue] = useState(() =>
     freeze(
       typeof initialValue === "function" ? initialValue() : initialValue,
@@ -10,7 +10,7 @@ export function useImmer(initialValue) {
   );
   return [
     val,
-    useCallback((updater) => {
+    useCallback((updater: (state: unknown, ...args: unknown[]) => unknown | unknown) => {
       if (typeof updater === "function") updateValue(produce(updater));
       else updateValue(freeze(updater));
     }, []),

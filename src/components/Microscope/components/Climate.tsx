@@ -1,9 +1,9 @@
-import { Box } from "../box/Box";
-import pluviophile from "../../assets/pluviophile.png";
-import chionophile from "../../assets/chionophile.png";
-import polar from "../../assets/polar.png";
-import tropical from "../../assets/tropical.png";
+import pluviophile from "@/assets/pluviophile.png";
+import chionophile from "@/assets/chionophile.png";
+import polar from "@/assets/polar.png";
+import tropical from "@/assets/tropical.png";
 import { twMerge } from "tailwind-merge";
+import { Box } from "@/components/Box";
 
 export const Climate = ({ bee, onClick }) => {
   const isPluviophile =
@@ -16,6 +16,7 @@ export const Climate = ({ bee, onClick }) => {
   const isTropical =
     ["Any", "Tropical"].includes(bee?.stats.d_traits.climate) ||
     ["Any", "Tropical"].includes(bee?.stats.r_traits.climate);
+
   return (
     <Box border="hilight" className="overflow-clip text-wrap bg-dark">
       <div className="flex p-2">

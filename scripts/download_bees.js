@@ -3,6 +3,7 @@ import { JSDOM } from "jsdom";
 import { createWriteStream } from "fs";
 import { finished } from "stream/promises";
 import { Readable } from "stream";
+
 const url = "https://wiki.apico.buzz/wiki/Bees";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

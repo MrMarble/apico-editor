@@ -1,64 +1,40 @@
 import { useEffect, useMemo, useState } from "preact/hooks";
-import { Box, Container, useGlobalContext } from "..";
-import { Zoom } from "./zoom";
-import { Inventory } from "./inventory";
+import { Zoom } from "./components/Zoom";
+import { Inventory } from "./components/Inventory";
 
-import { Traits } from "./traits";
-import { Behaviour } from "./behaviour";
-import { Climate } from "./climate";
-
-/**
- * @typedef {Object} Bee
- * @property {string} item
- * @property {Object} stats
- * @property {string} stats.species
- * @property {string} stats.beetrice
- * @property {string} stats.queen
- * @property {Traits} stats.d_traits
- * @property {Traits} stats.r_traits
- */
-
-/**
- * @typedef {Object} Traits
- * @property {number} aggresive
- * @property {string} behaviour
- * @property {number} chionophile
- * @property {string} climate
- * @property {string} fertility
- * @property {string} lifespan
- * @property {number} pluviophile
- * @property {string} productivity
- * @property {string} species
- * @property {string} stability
- */
+import { Traits } from "./components/Traits";
+import { Behaviour } from "./components/Behaviour";
+import { Climate } from "./components/Climate";
+import { useGlobalContext } from "../Context";
+import { Container } from "../Container";
+import { Box } from "../Box";
+import { Bee, isBee } from "@/types/Player";
 
 export const Microscope = () => {
   const { save, setTitle, setSave } = useGlobalContext();
-  const [selectedSlot, setSelectedSlot] = useState();
+  const [selectedSlot, setSelectedSlot] = useState(-1);
 
   const bees = useMemo(
     () =>
       Object.assign(
         {},
         ...save.player.slots
-          .map((slot, i) => (slot.item === "bee" ? { [i]: slot } : null))
+          .map((slot, i) => (isBee(slot) ? { [i + ""]: slot } : null))
           .filter(Boolean),
-      ),
+      ) as Record<string, Bee>,
     [save.player.slots],
   );
-  //const bees = save.player.slots.filter((slot) => slot?.item === "bee");
 
-  /** @type {Bee} */
   const selectedBee = bees[Object.keys(bees)[selectedSlot]];
-  console.log(selectedBee);
+
   useEffect(() => {
     setTitle("microscope");
   }, []);
 
-  const onTraitClick = (shift, trait, value) => {
+  const onTraitClick = (shift: boolean, trait: string, value: string) => {
     if (!selectedBee) return;
 
-    const slotIndex = Object.keys(bees)[selectedSlot];
+    const slotIndex = Object.keys(bees)[selectedSlot] as unknown as number;
     const stat = shift ? "r_traits" : "d_traits";
 
     setSave((save) => {
@@ -66,9 +42,9 @@ export const Microscope = () => {
     });
   };
 
-  const onBehaviourClick = (shift, value) => {
+  const onBehaviourClick = (shift: boolean, value: string) => {
     if (!selectedBee) return;
-    const slotIndex = Object.keys(bees)[selectedSlot];
+    const slotIndex = Object.keys(bees)[selectedSlot] as unknown as number;
     const stat = shift ? "r_traits" : "d_traits";
 
     setSave((save) => {
@@ -76,9 +52,9 @@ export const Microscope = () => {
     });
   };
 
-  const onClimateClick = (shift, value) => {
+  const onClimateClick = (shift: boolean, value: string) => {
     if (!selectedBee) return;
-    const slotIndex = Object.keys(bees)[selectedSlot];
+    const slotIndex = Object.keys(bees)[selectedSlot] as unknown as number;
     const stat = shift ? "r_traits" : "d_traits";
 
     setSave((save) => {

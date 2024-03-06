@@ -1,6 +1,5 @@
-import { useId } from "preact/hooks";
-import { Box } from "../box/Box";
-import { Container } from "../container/Container";
+import { Box } from "@/components/Box";
+import { Container } from "@/components/Container";
 import { twJoin } from "tailwind-merge";
 
 export const Inventory = ({ bees, selectedSlot, onClick }) => (
@@ -9,7 +8,7 @@ export const Inventory = ({ bees, selectedSlot, onClick }) => (
       {[...Array(14).keys()].map((i) => (
         <Box
           border="dark"
-          key={useId()}
+          key={i}
           onClick={() => {
             onClick(i);
           }}

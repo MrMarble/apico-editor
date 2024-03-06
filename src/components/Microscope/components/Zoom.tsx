@@ -1,6 +1,6 @@
-import { Box } from "../box/Box";
-import microscope from "../../assets/microscope.png";
-import beeColors from "../../assets/beeColors";
+import microscope from "@/assets/microscope.png";
+import beeColors from "@/assets/beeColors.json";
+import { Box } from "@/components/Box";
 
 export const Zoom = ({ directSpecie, recessiveSpecie }) => (
   <Box border="dark" title={`${directSpecie}-${recessiveSpecie}`}>
